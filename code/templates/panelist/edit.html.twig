@@ -5,11 +5,16 @@
 {% block body %}
     <div class="container">
         <h1 class="text-center mt-5 mb-3">Edit Panelist</h1>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_panelist_index') }}">Back to Panelists</a>
+            </div>
 
-        {{ include('panelist/_form.html.twig', {'button_label': 'Update'}) }}
+            <div class="card-body">
+                {{ include('panelist/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+        </div>
 
-        <a href="{{ path('app_panelist_index') }}">Back to Panelists</a>
 
-        {{ include('panelist/_delete_form.html.twig') }}
     </div>
 {% endblock %}

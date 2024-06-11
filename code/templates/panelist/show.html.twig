@@ -3,57 +3,59 @@
 {% block title %}Panelist{% endblock %}
 
 {% block body %}
-    <h1 class="text-center mt-5 mb-3">Panelist</h1>
+    <div class="container">
+        <h1 class="text-center mt-5 mb-3">#{{ panelist.id }} - {{ panelist.fullName }}</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ panelist.id }}</td>
-            </tr>
-            <tr>
-                <th>FirstName</th>
-                <td>{{ panelist.firstName }}</td>
-            </tr>
-            <tr>
-                <th>LastName</th>
-                <td>{{ panelist.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ panelist.email }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ panelist.phone }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ panelist.country }}</td>
-            </tr>
-            <tr>
-                <th>ReceiveNewsletters</th>
-                <td>{{ panelist.receiveNewsletters ? 'Yes' : 'No' }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ panelist.createdAt ? panelist.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ panelist.updatedAt ? panelist.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary href="{{ path('app_panelist_index') }}">Back to Panelists</a>
 
-    <div class="card">
-        <div class="card-header">
-            <a class="btn btn-outline-info href="{{ path('app_panelist_index') }}">Back to Panelists</a>
+                <a class="btn btn-outline-primary" href="{{ path('app_panelist_edit', {'id': panelist.id}) }}">Edit</a>
 
-            <a class="btn btn-outline-info" href="{{ path('app_panelist_edit', {'id': panelist.id}) }}">Edit</a>
-        </div>
-        <div class="card-body">
-            {{ include('panelist/_delete_form.html.twig') }}
+                {{ include('panelist/_delete_form.html.twig') }}
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ panelist.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>FirstName</th>
+                        <td>{{ panelist.firstName }}</td>
+                    </tr>
+                    <tr>
+                        <th>LastName</th>
+                        <td>{{ panelist.lastName }}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ panelist.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td>{{ panelist.phone }}</td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td>{{ panelist.country }}</td>
+                    </tr>
+                    <tr>
+                        <th>ReceiveNewsletters</th>
+                        <td>{{ panelist.receiveNewsletters ? 'Yes' : 'No' }}</td>
+                    </tr>
+                    <tr>
+                        <th>CreatedAt</th>
+                        <td>{{ panelist.createdAt ? panelist.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>UpdatedAt</th>
+                        <td>{{ panelist.updatedAt ? panelist.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}

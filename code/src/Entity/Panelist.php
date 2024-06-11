@@ -9,10 +9,12 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PanelistRepository::class)]
 #[ORM\Table(name: 'panelists')]
+#[HasLifecycleCallbacks]
 class Panelist
 {
     #[ORM\Id]
@@ -68,15 +70,6 @@ class Panelist
     }
 
     /**
-     * @param string $firstName
-     * @return void
-     */
-    public function setFirstName(string $firstName): void
-    {
-        $this->firstName = $firstName;
-    }
-
-    /**
      * @return string|null
      */
     public function getLastName(): ?string
@@ -84,13 +77,9 @@ class Panelist
         return $this->lastName;
     }
 
-    /**
-     * @param string $lastName
-     * @return void
-     */
-    public function setLastName(string $lastName): void
+    public function getFullName(): ?string
     {
-        $this->lastName = $lastName;
+        return "$this->firstName $this->lastName";
     }
 
     /**
@@ -102,29 +91,11 @@ class Panelist
     }
 
     /**
-     * @param string $email
-     * @return void
-     */
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    /**
      * @return string|null
      */
     public function getPhone(): ?string
     {
         return $this->phone;
-    }
-
-    /**
-     * @param string $phone
-     * @return void
-     */
-    public function setPhone(string $phone): void
-    {
-        $this->phone = $phone;
     }
 
     /**
@@ -136,29 +107,11 @@ class Panelist
     }
 
     /**
-     * @param string $country
-     * @return void
-     */
-    public function setCountry(string $country): void
-    {
-        $this->country = $country;
-    }
-
-    /**
      * @return bool
      */
     public function getReceiveNewsletters(): bool
     {
         return $this->receiveNewsletters;
-    }
-
-    /**
-     * @param bool $receiveNewsletters
-     * @return void
-     */
-    public function setReceiveNewsletters(bool $receiveNewsletters): void
-    {
-        $this->receiveNewsletters = $receiveNewsletters;
     }
 
     /**
@@ -183,5 +136,72 @@ class Panelist
     public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @param string $firstName
+     * @return void
+     */
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return void
+     */
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    /**
+     * @param string $email
+     * @return void
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param string $phone
+     * @return void
+     */
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    /**
+     * @param string $country
+     * @return void
+     */
+    public function setCountry(string $country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
+     * @param bool $receiveNewsletters
+     * @return void
+     */
+    public function setReceiveNewsletters(bool $receiveNewsletters): void
+    {
+        $this->receiveNewsletters = $receiveNewsletters;
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTimeImmutable();
+        $this->setUpdatedAtValue();
+    }
+
+    #[ORM\PreUpdate]
+    public function setUpdatedAtValue(): void
+    {
+        $this->updatedAt = new \DateTimeImmutable();
     }
 }
