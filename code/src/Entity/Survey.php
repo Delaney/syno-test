@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SurveyRepository;
+use App\Traits\HasTimestamps;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -10,8 +11,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SurveyRepository::class)]
 #[ORM\Table(name: 'surveys')]
+#[ORM\HasLifecycleCallbacks]
 class Survey
 {
+    use HasTimestamps;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -25,12 +29,6 @@ class Survey
 
     #[ORM\ManyToMany(targetEntity: Panelist::class, mappedBy: 'surveys')]
     private ?Collection $panelists = null;
-
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
-    protected DateTimeImmutable $createdAt;
-
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
-    protected DateTimeImmutable $updatedAt;
 
     /**
      * @return int
@@ -65,18 +63,20 @@ class Survey
     }
 
     /**
-     * @return DateTimeImmutable
+     * @param string $name
+     * @return void
      */
-    public function getCreatedAt(): DateTimeImmutable
+    public function setName(string $name): void
     {
-        return $this->createdAt;
+        $this->name = $name;
     }
 
     /**
-     * @return DateTimeImmutable
+     * @param bool $active
+     * @return void
      */
-    public function getUpdatedAt(): DateTimeImmutable
+    public function setActive(bool $active): void
     {
-        return $this->updatedAt;
+        $this->active = $active;
     }
 }

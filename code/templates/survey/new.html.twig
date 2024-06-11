@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Survey{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Create new Survey</h1>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_survey_index') }}">Back to Surveys</a>
+            </div>
+
+            <div class="card-body">
+                {{ include('survey/_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

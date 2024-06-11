@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Survey index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Survey index</h1>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_survey_new') }}">Create Survey</a>
+            </div>
+
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Active</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for survey in surveys %}
+                        <tr>
+                            <td>{{ survey.id }}</td>
+                            <td>{{ survey.name }}</td>
+                            <td>{{ survey.active ? 'Yes' : 'No' }}</td>
+                            <td>{{ survey.createdAt ? survey.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ survey.updatedAt ? survey.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a class="btn btn-outline-primary" href="{{ path('app_survey_show', {'id': survey.id}) }}">Show</a>
+                                <a class="btn btn-outline-primary" href="{{ path('app_survey_edit', {'id': survey.id}) }}">Edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="6">No records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

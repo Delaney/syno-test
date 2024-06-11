@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ form_row(form.name, {'attr': {'class': 'form-control'}}) }}
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ form_row(form.active, {'attr': {'class': 'form-check-input d-block'} }) }}
+            </div>
+        </div>
+    </div>
+
+    {{ form_widget(form) }}
+    <button class="btn mt-3 {{ button_color|default('btn-outline-primary') }}">{{ button_label|default('Create Survey') }}</button>
+{{ form_end(form) }}

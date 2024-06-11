@@ -5,18 +5,20 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\PanelistRepository;
+use App\Traits\HasTimestamps;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PanelistRepository::class)]
 #[ORM\Table(name: 'panelists')]
-#[HasLifecycleCallbacks]
+#[ORM\HasLifecycleCallbacks]
 class Panelist
 {
+    use HasTimestamps;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -47,11 +49,11 @@ class Panelist
     #[ORM\JoinTable(name: 'panelists_surveys')]
     private ?Collection $surveys = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
-    protected DateTimeImmutable $createdAt;
-
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
-    protected DateTimeImmutable $updatedAt;
+//    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
+//    protected DateTimeImmutable $createdAt;
+//
+//    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
+//    protected DateTimeImmutable $updatedAt;
 
     /**
      * @return int
@@ -123,22 +125,6 @@ class Panelist
     }
 
     /**
-     * @return DateTimeImmutable
-     */
-    public function getCreatedAt(): DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @return DateTimeImmutable
-     */
-    public function getUpdatedAt(): DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    /**
      * @param string $firstName
      * @return void
      */
@@ -190,18 +176,5 @@ class Panelist
     public function setReceiveNewsletters(bool $receiveNewsletters): void
     {
         $this->receiveNewsletters = $receiveNewsletters;
-    }
-
-    #[ORM\PrePersist]
-    public function setCreatedAtValue(): void
-    {
-        $this->createdAt = new \DateTimeImmutable();
-        $this->setUpdatedAtValue();
-    }
-
-    #[ORM\PreUpdate]
-    public function setUpdatedAtValue(): void
-    {
-        $this->updatedAt = new \DateTimeImmutable();
     }
 }

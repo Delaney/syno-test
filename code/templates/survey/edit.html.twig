@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Survey{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-5 mb-3">Edit Survey</h1>
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_survey_index') }}">Back to Surveys</a>
+            </div>
+        </div>
+
+        <div class="card-body">
+            {{ include('survey/_form.html.twig', {'button_label': 'Update Survey'}) }}
+        </div>
+    </div>
+{% endblock %}
