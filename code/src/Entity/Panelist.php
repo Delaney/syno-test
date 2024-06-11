@@ -5,19 +5,20 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\PanelistRepository;
-use App\Traits\HasTimestamps;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PanelistRepository::class)]
 #[ORM\Table(name: 'panelists')]
-#[ORM\HasLifecycleCallbacks]
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false)]
 class Panelist
 {
-    use HasTimestamps;
+    use TimestampableEntity, SoftDeleteableEntity;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -48,12 +49,6 @@ class Panelist
     #[ORM\ManyToMany(targetEntity: Survey::class, inversedBy: 'panelists')]
     #[ORM\JoinTable(name: 'panelists_surveys')]
     private ?Collection $surveys = null;
-
-//    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
-//    protected DateTimeImmutable $createdAt;
-//
-//    #[ORM\Column(type: Types::DATETIME_IMMUTABLE, nullable: false)]
-//    protected DateTimeImmutable $updatedAt;
 
     /**
      * @return int
