@@ -71,7 +71,7 @@ class PanelistController extends AbstractController
     #[Route('/{id}', name: 'app_panelist_delete', methods: ['POST'])]
     public function delete(Request $request, Panelist $panelist, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$panelist->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid(('delete'.$panelist->getId()), strval($request->request->get('_token')))) {
             $entityManager->remove($panelist);
             $entityManager->flush();
         }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\SurveyRepository;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -30,21 +30,24 @@ class Survey
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $active = false;
 
+    /**
+     * @var ArrayCollection<int, Panelist>|null
+     */
     #[ORM\ManyToMany(targetEntity: Panelist::class, mappedBy: 'surveys')]
-    private ?Collection $panelists = null;
+    private ?ArrayCollection $panelists = null;
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -58,9 +61,9 @@ class Survey
     }
 
     /**
-     * @return Collection|null
+     * @return ArrayCollection<int, Panelist>|null
      */
-    public function getPanelists(): Collection|null
+    public function getPanelists(): ArrayCollection|null
     {
         return $this->panelists;
     }

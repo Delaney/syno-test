@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\PanelistRepository;
-use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -46,14 +46,17 @@ class Panelist
     #[ORM\Column(type: Types::BOOLEAN)]
     private bool $receiveNewsletters = false;
 
+    /**
+     * @var ArrayCollection<int, Survey>|null
+     */
     #[ORM\ManyToMany(targetEntity: Survey::class, inversedBy: 'panelists')]
     #[ORM\JoinTable(name: 'panelists_surveys')]
-    private ?Collection $surveys = null;
+    private ?ArrayCollection $surveys = null;
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -112,9 +115,9 @@ class Panelist
     }
 
     /**
-     * @return Collection|null
+     * @return ?ArrayCollection<int, Survey>
      */
-    public function getSurveys(): Collection|null
+    public function getSurveys(): ?ArrayCollection
     {
         return $this->surveys;
     }
