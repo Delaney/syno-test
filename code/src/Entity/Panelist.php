@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Repository\PanelistRepository;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -38,6 +38,11 @@ class Panelist
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Assert\Regex('/^\+?[0-9]{10,13}$/')]
+    #[Assert\Type(
+        type: 'numeric',
+        message: 'The value {{ value }} is not a valid phone number.',
+    )]
     private ?string $phone = null;
 
     #[ORM\Column]
@@ -47,11 +52,11 @@ class Panelist
     private bool $receiveNewsletters = false;
 
     /**
-     * @var ArrayCollection<int, Survey>|null
+     * @var Collection<int, Survey>|null
      */
     #[ORM\ManyToMany(targetEntity: Survey::class, inversedBy: 'panelists')]
     #[ORM\JoinTable(name: 'panelists_surveys')]
-    private ?ArrayCollection $surveys = null;
+    private ?Collection $surveys = null;
 
     /**
      * @return int|null
@@ -115,9 +120,9 @@ class Panelist
     }
 
     /**
-     * @return ?ArrayCollection<int, Survey>
+     * @return ?Collection<int, Survey>
      */
-    public function getSurveys(): ?ArrayCollection
+    public function getSurveys(): ?Collection
     {
         return $this->surveys;
     }
