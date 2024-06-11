@@ -4,7 +4,7 @@ start:
 	docker-compose up -d --build
 
 rm:
-	docker-compose -p "$(APP_NAME)" -f docker-compose.yml down
+	docker-compose -p "${APP_NAME}" -f docker-compose.yml down
 
 exec:
 	docker exec -it ${APP_NAME}-server sh -c "$(c)"
@@ -17,4 +17,7 @@ run-migration:
 
 phpstan:
 	docker exec -it ${APP_NAME}-server sh -c "./vendor/bin/phpstan analyse --memory-limit=4G"
+
+run-tests: ## Run all tests
+	docker exec -it ${APP_NAME}-server sh -c "./vendor/bin/phpunit"
 
