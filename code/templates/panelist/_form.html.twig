@@ -1,4 +1,9 @@
 {{ form_start(form) }}
+    <style>
+        #panelist_surveys label {
+            margin: 0 15px 0 5px;
+        }
+    </style>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -33,6 +38,12 @@
         <div class="col-md-6">
             <div class="form-group">
                 {{ form_row(form.receiveNewsletters, {'attr': {'class': 'form-check-input d-block'} }) }}
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="form-group">
+                {{ form_row(form.surveys, {'attr': {'class': ''} }) }}
             </div>
         </div>
     </div>

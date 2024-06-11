@@ -54,6 +54,12 @@
                         <td>{{ panelist.updatedAt ? panelist.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     </tr>
                     </tbody>
+                    <hr>
+                    <tr>
+                        <th>Surveys</th>
+                        <td>{{ panelist.surveys|map(s => "<li>#{s.name}</li>")|join('')|raw }}</td>
+                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
