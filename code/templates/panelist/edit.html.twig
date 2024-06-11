@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Panelist{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-5 mb-3">Edit Panelist</h1>
+
+        {{ include('panelist/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('app_panelist_index') }}">Back to Panelists</a>
+
+        {{ include('panelist/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

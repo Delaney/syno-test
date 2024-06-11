@@ -9,8 +9,10 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PanelistRepository::class)]
+#[ORM\Table(name: 'panelists')]
 class Panelist
 {
     #[ORM\Id]
@@ -25,6 +27,9 @@ class Panelist
     private ?string $lastName = null;
 
     #[ORM\Column(unique: true)]
+    #[Assert\Email(
+        message: 'The email {{ value }} is not a valid email.'
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -63,11 +68,29 @@ class Panelist
     }
 
     /**
+     * @param string $firstName
+     * @return void
+     */
+    public function setFirstName(string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    /**
      * @return string|null
      */
     public function getLastName(): ?string
     {
         return $this->lastName;
+    }
+
+    /**
+     * @param string $lastName
+     * @return void
+     */
+    public function setLastName(string $lastName): void
+    {
+        $this->lastName = $lastName;
     }
 
     /**
@@ -79,11 +102,29 @@ class Panelist
     }
 
     /**
+     * @param string $email
+     * @return void
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
      * @return string|null
      */
     public function getPhone(): ?string
     {
         return $this->phone;
+    }
+
+    /**
+     * @param string $phone
+     * @return void
+     */
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
     }
 
     /**
@@ -95,11 +136,29 @@ class Panelist
     }
 
     /**
+     * @param string $country
+     * @return void
+     */
+    public function setCountry(string $country): void
+    {
+        $this->country = $country;
+    }
+
+    /**
      * @return bool
      */
-    public function getReceivesNewsletters(): bool
+    public function getReceiveNewsletters(): bool
     {
         return $this->receiveNewsletters;
+    }
+
+    /**
+     * @param bool $receiveNewsletters
+     * @return void
+     */
+    public function setReceiveNewsletters(bool $receiveNewsletters): void
+    {
+        $this->receiveNewsletters = $receiveNewsletters;
     }
 
     /**

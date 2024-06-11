@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Panelist{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-5 mb-3">Create new Panelist</h1>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-info float-right" href="{{ path('app_panelist_index') }}">Back to Panelists</a>
+            </div>
+            <div class="card-body">
+                {{ include('panelist/_form.html.twig') }}
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

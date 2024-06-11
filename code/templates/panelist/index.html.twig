@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panelist index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="text-center mt-5 mb-3">Panelists</h1>
+
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-outline-primary" href="{{ path('app_panelist_new') }}">Create Panelist</a>
+            </div>
+
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>FirstName</th>
+                        <th>LastName</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Country</th>
+                        <th>ReceiveNewsletters</th>
+                        <th>CreatedAt</th>
+                        <th>UpdatedAt</th>
+                        <th>actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for panelist in panelists %}
+                        <tr>
+                            <td>{{ panelist.id }}</td>
+                            <td>{{ panelist.firstName }}</td>
+                            <td>{{ panelist.lastName }}</td>
+                            <td>{{ panelist.email }}</td>
+                            <td>{{ panelist.phone }}</td>
+                            <td>{{ panelist.country }}</td>
+                            <td>{{ panelist.receiveNewsletters ? 'Yes' : 'No' }}</td>
+                            <td>{{ panelist.createdAt ? panelist.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>{{ panelist.updatedAt ? panelist.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                            <td>
+                                <a href="{{ path('app_panelist_show', {'id': panelist.id}) }}">show</a>
+                                <a href="{{ path('app_panelist_edit', {'id': panelist.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="10">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
